@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://gitlab.com/GnaneshKunal/nodeTCP/issues"
   },
-  "homepage": "https://gitlab.com/GnaneshKunal/nodeTCP#README"
+  "homepage": "https://gitlab.com/GnaneshKunal/nodeTCP#README",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
 }
