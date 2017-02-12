@@ -2,6 +2,7 @@ var net = require('net');
 var _ = require('lodash');
 var clients = [];
 var io = require('./lib/services')(clients);
+var reducer = require('./src/index');
 
 net.createServer(socket => {
   socket.details = {
@@ -16,25 +17,11 @@ net.createServer(socket => {
   broadcast(socket.details.address + ":" + socket.details.port + " has joined the chat\n", socket);
   emit('You can change name with name:\n', socket);
 
-    var chunk = "";
+  var chunk = "";
   socket.on('data', data => {
     
     chunk = data.trim();
-    if (chunk === 'options') {
-      return options(socket);
-    }
-    if (chunk === 'myname') {
-      return emit('---' + socket.details.name + '---\n', socket);
-    }
-    if (chunk.includes('name:')) {
-      if (chunk.split(':')[1] == '') return;
-      var oldName = (socket.details.name == 'Guest' ? socket.details.address : socket.details.name) + ":" + socket.details.port;
-      var newName = chunk.split(':')[1].trim();
-      if (!changeName(newName, socket)) return;
-      emit("---name has been changed---\n", socket);
-      return broadcast(`${oldName} has changed to ${newName}:${socket.details.port}\n`, socket);
-    }
-    return broadcast(socket.details.name + ":" + socket.details.port + "> " + chunk + '\n', socket);
+    reducer(chunk, socket);
   });
 
   socket.on('end', () => {
