@@ -28,7 +28,7 @@ net.createServer(socket => {
     }
     if (chunk.includes('name:')) {
       if (chunk.split(':')[1] == '') return;
-      var oldName = (socket.details.name == 'no name' ? socket.details.address : socket.details.name) + ":" + socket.details.port;
+      var oldName = (socket.details.name == 'Guest' ? socket.details.address : socket.details.name) + ":" + socket.details.port;
       var newName = chunk.split(':')[1].trim();
       if (!changeName(newName, socket)) return;
       emit("---name has been changed---\n", socket);
