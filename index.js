@@ -1,12 +1,13 @@
 var net = require('net');
 var _ = require('lodash');
 var clients = [];
+var io = require('./lib/services')(clients);
 
 net.createServer(socket => {
   socket.details = {
     address: socket.remoteAddress,
     port: socket.remotePort,
-    name: 'No name'
+    name: 'Guest' + Math.floor(Math.random() * 20)
   };
   socket.setEncoding("utf8");
   clients.push(socket);
@@ -44,42 +45,4 @@ net.createServer(socket => {
   console.log('Port: 8000');
 });
 
-function changeName(name, socket) {
-  var check = clients.map(client => client.details.name.toLowerCase());
-  if (check.includes(name.toLowerCase())) {
-    emit('---Please choose another name ---\n', socket);
-    return false;
-  }
-  clients.forEach(client => {
-    if (client == socket) {
-      return client.details.name = name;
-    }
-  });
-  return true;
-}
-
-function broadcast(message, sender) {
-  clients.forEach(client => {
-    if (client === sender) return;
-    client.write(message);
-  });
-
-  process.stdout.write(message);
-}
-
-function emit(message, sender) {
-  clients.forEach(client => {
-    if (client === sender) {
-      return client.write(message);
-    }
-  });
-}
-
-function options (sender) {
-  clients.forEach(client => {
-    if (client === sender) {
-      return sender.write('OPTIONS:');
-    }
-  });
-}
 
