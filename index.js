@@ -1,8 +1,11 @@
 var net = require('net');
 var _ = require('lodash');
 var clients = [];
+var players = [];
 var io = require('./lib/services')(clients);
+var xo = require('./lib/game')(players);
 var reducer = require('./src/index');
+var gameReducer = require('./src/gameReducer');
 
 net.createServer(socket => {
   socket.details = {
@@ -19,8 +22,17 @@ net.createServer(socket => {
 
   var chunk = "";
   socket.on('data', data => {
-    
+
     chunk = data.trim();
+    if (chunk.includes('game:')) {
+      var xo = chunk.split(':');
+      xo = xo.length === 2 && (xo[1] === 'x' || xo[1] === 'o' ) ? xo[1] : false;
+      if (xo) {
+        if (!players.game.active) {
+          
+        }
+      }
+    }
     reducer(chunk, socket);
   });
 
