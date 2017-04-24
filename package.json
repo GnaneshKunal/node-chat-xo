@@ -7,16 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/GnaneshKunal/nodeTCP.git"
-  },
+  "repository": "https://GnaneshKunal@gitlab.com/GnaneshKunal/node-chat-xo.git",
   "author": "gnanesh",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/GnaneshKunal/nodeTCP/issues"
+    "url": "https://gitlab.com/GnaneshKunal/node-chat-xo/issues"
   },
-  "homepage": "https://gitlab.com/GnaneshKunal/nodeTCP#README",
+  "homepage": "https://gitlab.com/GnaneshKunal/node-chat-xo.git#README",
   "dependencies": {
     "lodash": "^4.17.4"
   }
