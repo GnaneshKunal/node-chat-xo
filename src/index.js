@@ -1,8 +1,8 @@
 module.exports = function(chunk, socket) {
     switch(true) {
-        case chunk === 'options':
-            return options(socket);
-        case chunk === 'myname':
+        case chunk === 'help:':
+            return help(socket);
+        case chunk === 'myname:':
             return emit('---' + socket.details.name + '---\n', socket);
         case (chunk.includes('name:') && chunk.indexOf('name:') == 0):
             if (chunk.split(':')[1] == '') return;
