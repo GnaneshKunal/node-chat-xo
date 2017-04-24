@@ -26,7 +26,9 @@ net.createServer(socket => {
     chunk = data.trim();
     
     gameReducer(game, chunk, socket);
-    reducer(chunk, socket);
+    if (!game.isActive) {
+        reducer(chunk, socket);
+    }
   });
 
   socket.on('end', () => {
