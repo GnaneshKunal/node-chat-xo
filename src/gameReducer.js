@@ -40,13 +40,8 @@ module.exports = function(game, chunk, socket) {
                         if (game[char].chance){
                             game.game[num] = character;
                             alert(board(game));
-                            if (char === 'x') {
-                                game.x.chance = false;
-                                game.o.chance = true; 
-                            } else {
-                                game.x.chance = true;
-                                game.o.chance = false; 
-                            }
+                            game.x.chance = !game.x.chance;
+                            game.o.chance = !game.o.chance;
                         } else {
                             return emit('Please wait for opponent to react', socket);
                         }
@@ -59,7 +54,7 @@ module.exports = function(game, chunk, socket) {
                 }
                 if (checkWin(game.game)) {
                     alert('---' + socket.details.name + ' has won the game---');
-                    return game = afterWin(game);
+                    return game = afterFinish(game);
                 } else if (checkFinish(game.game)) {
                     alert('---Game has ended---');
                     return game = afterFinish(game);
@@ -71,6 +66,7 @@ module.exports = function(game, chunk, socket) {
                 xo = xo.length === 2 && (xo[1] === 'x' || xo[1] === 'o') ? xo[1] : false;
                 if (xo) {
                     game[xo] = socket;
+                    game[xo].chance = true;
                     game.isActive = 'waiting';
                     return emit('you have selected ' + xo, socket);
                 }
