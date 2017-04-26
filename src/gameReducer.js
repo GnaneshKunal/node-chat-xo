@@ -40,8 +40,13 @@ module.exports = function(game, chunk, socket) {
                         if (game[char].chance){
                             game.game[num] = character;
                             alert(board(game));
-                            game.x.chance = !game.x.chance;
-                            game.o.chance = !game.o.chance;
+                            if (char === 'x') {
+                                game.x.chance = false;
+                                game.o.chance = true; 
+                            } else {
+                                game.x.chance = true;
+                                game.o.chance = false; 
+                            }
                         } else {
                             return emit('Please wait for opponent to react', socket);
                         }
