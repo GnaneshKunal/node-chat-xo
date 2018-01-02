@@ -15,6 +15,10 @@
   },
   "homepage": "https://gitlab.com/GnaneshKunal/node-chat-xo.git#README",
   "dependencies": {
+    "bluebird": "^3.5.1",
+    "elgamal": "^0.3.0",
+    "iconv": "^2.3.0",
+    "jsbn": "^1.1.0",
     "lodash": "^4.17.4"
   }
 }
